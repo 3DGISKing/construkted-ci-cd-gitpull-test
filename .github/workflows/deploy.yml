@@ -1,12 +1,30 @@
-name: Update GW4
+name: Deploy to Server
 
 on:
   push:
     branches:
-      - main # or whatever branch you deploy from
+      - main
+      - develop
 
 jobs:
-  deploy:
+  deploy_prod:
+    if: github.ref == 'refs/heads/main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: GW4 Update from main branch
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /home/gw4
+            git pull
+
+  deploy_gw4:
+    if: github.ref == 'refs/heads/develop
     runs-on: ubuntu-latest
 
     steps:
