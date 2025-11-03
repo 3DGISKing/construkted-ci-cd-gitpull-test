@@ -24,7 +24,7 @@ jobs:
             git pull
 
   deploy_gw4:
-    if: github.ref == 'refs/heads/develop
+    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
 
     steps:
