@@ -15,8 +15,8 @@ jobs:
       - name: Prod Update from main branch
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.SSH_DEV1_HOST }}
+          username: ${{ secrets.SSH_DEV01_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
