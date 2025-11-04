@@ -15,12 +15,12 @@ jobs:
       - name: Prod Update from main branch
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.SSH_DEV1_HOST }}
-          username: ${{ secrets.SSH_DEV01_USER }}
+          host: ${{ secrets.SSH_PROD_HOST }}
+          username: ${{ secrets.SSH_PROD_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd /home/gw4
+            cd /home/contrukted
             git pull
 
   deploy_gw4:
@@ -28,13 +28,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: GW4 Update from main branch
+      - name: GW4 Update from develop branch
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.SSH_GW4_HOST }}
+          username: ${{ secrets.SSH_GW4_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd /home/gw4
             git pull
+
+deploy_dev1:
+  if: github.ref == 'refs/heads/dev1'
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: GW4 Update from dev1 branch
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.SSH_DEV1_HOST }}
+        username: ${{ secrets.SSH_DEV1_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          cd /home/dev01con
+          git pull
+
+deploy_dev2:
+  if: github.ref == 'refs/heads/dev2'
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: GW4 Update from dev2 branch
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.SSH_DEV2_HOST }}
+        username: ${{ secrets.SSH_DEV2_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          cd /home/dev02con
+          git pull
