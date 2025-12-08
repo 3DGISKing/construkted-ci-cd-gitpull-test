@@ -84,7 +84,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           debug: true
           script: |
-            cd /home/gw4
+            cd /home/gw4/public_html
             git pull
 
   deploy_dev1:
