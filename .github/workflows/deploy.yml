@@ -85,6 +85,7 @@ jobs:
           debug: true
           script: |
             cd /home/gw4
+            ls -l
             git pull
 
   deploy_dev1:
