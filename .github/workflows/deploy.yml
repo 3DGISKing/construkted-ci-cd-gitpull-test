@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - develop
+      - dev1
+      - dev2
 
 jobs:
   deploy_prod:
@@ -12,6 +14,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check if all secrets are set
+        run: |
+          if [ -z "${{ secrets.SSH_PROD_HOST }}" ]; then
+            echo "❌ Secret SSH_PROD_HOST is empty or not set!"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.SSH_PROD_USER }}" ]; then
+            echo "❌ Secret SSH_PROD_USER is empty or not set!"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.SSH_KEY }}" ]; then
+            echo "❌ Secret SSH_KEY is empty or not set!"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.SSH_PORT }}" ]; then
+            echo "❌ Secret SSH_PORT is empty or not set!"
+            exit 1
+          fi
+
       - name: Prod Update from main branch
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -28,6 +52,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check if all secrets are set
+        run: |
+          if [ -z "${{ secrets.SSH_GW4_HOST }}" ]; then
+            echo "❌ Secret SSH_GW4_HOST is empty or not set!"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.SSH_GW4_USER }}" ]; then
+            echo "❌ Secret SSH_GW4_USER is empty or not set!"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.SSH_KEY }}" ]; then
+            echo "❌ Secret SSH_KEY is empty or not set!"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.SSH_PORT }}" ]; then
+            echo "❌ Secret SSH_PORT is empty or not set!"
+            exit 1
+          fi
+
       - name: GW4 Update from develop branch
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -39,34 +85,77 @@ jobs:
             cd /home/gw4
             git pull
 
-deploy_dev1:
-  if: github.ref == 'refs/heads/dev1'
-  runs-on: ubuntu-latest
+  deploy_dev1:
+    if: github.ref == 'refs/heads/dev1'
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: GW4 Update from dev1 branch
-      uses: appleboy/ssh-action@v0.1.10
-      with:
-        host: ${{ secrets.SSH_DEV1_HOST }}
-        username: ${{ secrets.SSH_DEV1_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        script: |
-          cd /home/dev01con
-          git pull
+    steps:
+      - name: Check if all secrets are set
+        run: |
+          if [ -z "${{ secrets.SSH_DEV1_HOST }}" ]; then
+            echo "❌ Secret SSH_DEV1_HOST is empty or not set!"
+            exit 1
+          fi
 
-deploy_dev2:
-  if: github.ref == 'refs/heads/dev2'
-  runs-on: ubuntu-latest
+          if [ -z "${{ secrets.SSH_DEV1_USER }}" ]; then
+            echo "❌ Secret SSH_DEV1_USER is empty or not set!"
+            exit 1
+          fi
 
-  steps:
-    - name: GW4 Update from dev2 branch
-      uses: appleboy/ssh-action@v0.1.10
-      with:
-        host: ${{ secrets.SSH_DEV2_HOST }}
-        username: ${{ secrets.SSH_DEV2_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        script: |
-          cd /home/dev02con
-          git pull
+          if [ -z "${{ secrets.SSH_KEY }}" ]; then
+            echo "❌ Secret SSH_KEY is empty or not set!"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.SSH_PORT }}" ]; then
+            echo "❌ Secret SSH_PORT is empty or not set!"
+            exit 1
+          fi
+
+      - name: Dev1 Update from dev1 branch
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_DEV1_HOST }}
+          username: ${{ secrets.SSH_DEV1_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /home/dev01con
+            git pull
+
+  deploy_dev2:
+    if: github.ref == 'refs/heads/dev2'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if all secrets are set
+        run: |
+          if [ -z "${{ secrets.SSH_DEV2_HOST }}" ]; then
+            echo "❌ Secret SSH_DEV2_HOST is empty or not set!"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.SSH_DEV2_USER }}" ]; then
+            echo "❌ Secret SSH_DEV2_USER is empty or not set!"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.SSH_KEY }}" ]; then
+            echo "❌ Secret SSH_KEY is empty or not set!"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.SSH_PORT }}" ]; then
+            echo "❌ Secret SSH_PORT is empty or not set!"
+            exit 1
+          fi
+      - name: Dev2 Update from dev2 branch
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_DEV2_HOST }}
+          username: ${{ secrets.SSH_DEV2_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /home/dev02con
+            git pull
