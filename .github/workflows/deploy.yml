@@ -43,6 +43,7 @@ jobs:
           username: ${{ secrets.SSH_PROD_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          debug: true
           script: |
             cd /home/contrukted
             git pull
@@ -81,6 +82,7 @@ jobs:
           username: ${{ secrets.SSH_GW4_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          debug: true
           script: |
             cd /home/gw4
             git pull
@@ -119,6 +121,7 @@ jobs:
           username: ${{ secrets.SSH_DEV1_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          debug: true
           script: |
             cd /home/dev01con
             git pull
@@ -156,6 +159,7 @@ jobs:
           username: ${{ secrets.SSH_DEV2_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          debug: true
           script: |
             cd /home/dev02con
             git pull
