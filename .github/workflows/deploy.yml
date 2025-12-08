@@ -84,9 +84,6 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           debug: true
           script: |
-            cd /home/gw4
-            ls -l
-            git pull
 
   deploy_dev1:
     if: github.ref == 'refs/heads/dev1'
