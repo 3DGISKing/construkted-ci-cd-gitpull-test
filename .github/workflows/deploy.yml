@@ -76,7 +76,7 @@ jobs:
           fi
 
       - name: GW4 Update from develop branch
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SSH_GW4_HOST }}
           username: ${{ secrets.SSH_GW4_USER }}
